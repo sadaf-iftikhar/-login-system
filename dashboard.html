@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .card {
+            background: #ffffff;
+            padding: 44px 40px;
+            border-radius: 16px;
+            width: 420px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+            text-align: center;
+        }
+
+        .icon { font-size: 48px; margin-bottom: 12px; }
+
+        h2 {
+            color: #27ae60;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .welcome {
+            color: #1a1a2e;
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .username { color: #4f46e5; font-weight: 700; }
+
+        .subtitle {
+            color: #888;
+            font-size: 13px;
+            margin-bottom: 28px;
+        }
+
+        .info-box {
+            background: #f8f9ff;
+            border: 1.5px solid #e0e0f0;
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 13px;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .info-row:last-child { border-bottom: none; }
+        .info-row span:first-child { color: #888; }
+        .info-row span:last-child { color: #4f46e5; font-weight: 600; }
+
+        .logout-btn {
+            display: inline-block;
+            padding: 11px 32px;
+            background: #4f46e5;
+            color: white;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .logout-btn:hover { background: #3730a3; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="icon">✅</div>
+    <h2>Login Successful</h2>
+    <p class="welcome">Welcome, <span class="username">{{ username }}</span>!</p>
+    <p class="subtitle">You are now inside your secure account.</p>
+
+    <div class="info-box">
+        <div class="info-row">
+            <span>Logged in as</span>
+            <span>{{ username }}</span>
+        </div>
+        <div class="info-row">
+            <span>Session</span>
+            <span>Active ✅</span>
+        </div>
+    </div>
+
+    <a href="/logout" class="logout-btn">Logout</a>
+</div>
+</body>
+</html>

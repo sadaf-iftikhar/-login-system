@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .card {
+            background: #ffffff;
+            padding: 44px 40px;
+            border-radius: 16px;
+            width: 420px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 6px;
+            font-size: 36px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #1a1a2e;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            font-size: 13px;
+            margin-bottom: 28px;
+        }
+
+        label {
+            display: block;
+            color: #444;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        input {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #1a1a2e;
+            outline: none;
+            transition: border 0.2s;
+            margin-bottom: 18px;
+            background: #fafafa;
+        }
+
+        input:focus {
+            border-color: #4f46e5;
+            background: #fff;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover { background: #3730a3; }
+
+        .message {
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .error {
+            background: #fff0f0;
+            color: #c0392b;
+            border: 1px solid #f5c6c6;
+        }
+
+        .success {
+            background: #f0fff4;
+            color: #27ae60;
+            border: 1px solid #b7ebc8;
+        }
+
+        .bottom-link {
+            text-align: center;
+            margin-top: 22px;
+            color: #888;
+            font-size: 13px;
+        }
+
+        .bottom-link a {
+            color: #4f46e5;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .bottom-link a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="logo">✨</div>
+    <h2>Create Account</h2>
+    <p class="subtitle">Join us — it only takes a minute</p>
+
+    {% if error %}
+        <div class="message error">{{ error }}</div>
+    {% endif %}
+    {% if success %}
+        <div class="message success">{{ success }}</div>
+    {% endif %}
+
+    <form method="POST">
+        <label>Username</label>
+        <input type="text" name="username" placeholder="Choose a username" required>
+
+        <label>Email</label>
+        <input type="email" name="email" placeholder="Enter your email" required>
+
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Create a password" required>
+
+        <label>Confirm Password</label>
+        <input type="password" name="confirm_password" placeholder="Repeat your password" required>
+
+        <button type="submit">Create Account</button>
+    </form>
+
+    <div class="bottom-link">
+        Already have an account? <a href="/login">Login here</a>
+    </div>
+</div>
+</body>
+</html>

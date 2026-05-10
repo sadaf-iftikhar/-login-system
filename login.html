@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .card {
+            background: #ffffff;
+            padding: 44px 40px;
+            border-radius: 16px;
+            width: 420px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+        }
+
+        .logo { text-align: center; font-size: 36px; margin-bottom: 6px; }
+
+        h2 {
+            text-align: center;
+            color: #1a1a2e;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            font-size: 13px;
+            margin-bottom: 28px;
+        }
+
+        label {
+            display: block;
+            color: #444;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .input-wrap {
+            position: relative;
+            margin-bottom: 18px;
+        }
+
+        .input-wrap input {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #1a1a2e;
+            outline: none;
+            transition: border 0.2s;
+            background: #fafafa;
+        }
+
+        .input-wrap input:focus { border-color: #4f46e5; background: #fff; }
+
+        .eye-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #888;
+            padding: 0;
+            width: auto;
+        }
+
+        .eye-btn:hover { color: #4f46e5; }
+
+        .captcha-box {
+            border: 1.5px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            background: #fafafa;
+            cursor: pointer;
+            transition: border 0.2s;
+        }
+
+        .captcha-box:hover { border-color: #4f46e5; }
+
+        .captcha-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .captcha-checkbox {
+            width: 20px;
+            height: 20px;
+            accent-color: #4f46e5;
+            cursor: pointer;
+        }
+
+        .captcha-text { color: #333; font-size: 14px; font-weight: 500; }
+        .captcha-logo { font-size: 22px; }
+
+        .captcha-error {
+            color: #c0392b;
+            font-size: 12px;
+            margin-bottom: 14px;
+            margin-top: -4px;
+            display: none;
+        }
+
+        .captcha-error.show { display: block; }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 6px;
+        }
+
+        button[type="submit"]:hover { background: #3730a3; }
+
+        .message {
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .error {
+            background: #fff0f0;
+            color: #c0392b;
+            border: 1px solid #f5c6c6;
+        }
+
+        .warning {
+            background: #fff8e1;
+            color: #e65100;
+            border: 1px solid #ffe082;
+        }
+
+        .form-footer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: -10px;
+            margin-bottom: 18px;
+        }
+
+        .form-footer a {
+            color: #4f46e5;
+            font-size: 12px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .form-footer a:hover { text-decoration: underline; }
+
+        .bottom-link {
+            text-align: center;
+            margin-top: 22px;
+            color: #888;
+            font-size: 13px;
+        }
+
+        .bottom-link a {
+            color: #4f46e5;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .bottom-link a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="logo">🔐</div>
+    <h2>Welcome Back</h2>
+    <p class="subtitle">Sign in to your secure account</p>
+
+    {% if error %}
+        <div class="message error">{{ error }}</div>
+    {% endif %}
+    {% if warning %}
+        <div class="message warning">{{ warning }}</div>
+    {% endif %}
+
+    <form method="POST" onsubmit="return validateForm()">
+        <label>Username or Email</label>
+        <div class="input-wrap">
+            <input type="text" name="username" placeholder="Enter username or email" required>
+        </div>
+
+        <label>Password</label>
+        <div class="input-wrap">
+            <input type="password" name="password" id="passwordField" placeholder="Enter your password" required>
+            <button type="button" class="eye-btn" onclick="togglePassword()">👁️</button>
+        </div>
+
+        <div class="form-footer">
+            <a href="/forgot-password">Forgot password?</a>
+        </div>
+
+        <label>Security Check</label>
+        <div class="captcha-box" onclick="toggleCheck()">
+            <div class="captcha-left">
+                <input type="checkbox" class="captcha-checkbox" id="captchaCheck" name="captcha_checked" value="yes">
+                <span class="captcha-text">I am not a robot</span>
+            </div>
+            <div class="captcha-logo">🛡️</div>
+        </div>
+        <div class="captcha-error" id="captchaError">⚠️ Please confirm you are not a robot.</div>
+
+        {% if error and 'robot' in error %}
+            <div class="captcha-error show">⚠️ Please confirm you are not a robot.</div>
+        {% endif %}
+
+        <button type="submit">Sign In</button>
+    </form>
+
+    <div class="bottom-link">
+        Don't have an account? <a href="/signup">Sign up here</a>
+    </div>
+</div>
+
+<script>
+    function togglePassword() {
+        const field = document.getElementById('passwordField');
+        const btn = document.querySelector('.eye-btn');
+        if (field.type === 'password') {
+            field.type = 'text';
+            btn.textContent = '🙈';
+        } else {
+            field.type = 'password';
+            btn.textContent = '👁️';
+        }
+    }
+
+    function toggleCheck() {
+        const cb = document.getElementById('captchaCheck');
+        cb.checked = !cb.checked;
+    }
+
+    function validateForm() {
+        const cb = document.getElementById('captchaCheck');
+        const err = document.getElementById('captchaError');
+        if (!cb.checked) {
+            err.classList.add('show');
+            return false;
+        }
+        err.classList.remove('show');
+        return true;
+    }
+</script>
+</body>
+</html>
